@@ -55,9 +55,6 @@ function Products() {
                       </li>
                     ))}
                   </ul>
-                  <Button className="cursor-pointer w-full bg-primary hover:bg-primary-dark text-primary" onClick={() => navigate(`/products/${product.name.toLowerCase().replace(/\s+/g, '-')}`)}>
-                    Learn More
-                  </Button>
                 </div>
               </div>
             ))}
@@ -108,10 +105,10 @@ function Products() {
           <h2 className="text-4xl font-bold mb-6">Ready to Get Started?</h2>
           <p className="text-xl mb-8 opacity-90">Choose the perfect solution for your business</p>
           <div className="flex gap-4 justify-center">
-            <Button size="lg" className="bg-white text-primary hover:bg-gray-100">
+            <Button size="lg" className="bg-secondary text-white cursor-pointer hover:bg-secondary-dark" onClick={() => navigate("/contact-us")}>
               View Pricing
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+            <Button size="lg" variant="outline" className="border-white text-primary hover:bg-white hover:text-primary cursor-pointer" onClick={() => navigate("/contact-us")}>
               Contact Sales
             </Button>
           </div>
