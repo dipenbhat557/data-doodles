@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button"
+import { useNavigate } from "react-router-dom";
 
 function Services() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
@@ -71,9 +73,6 @@ function Services() {
                     </li>
                   ))}
                 </ul>
-                <Button className="w-full bg-primary hover:bg-primary-dark text-white">
-                  Learn More
-                </Button>
               </div>
             ))}
           </div>
@@ -140,10 +139,10 @@ function Services() {
           <h2 className="text-4xl font-bold mb-6">Let's Work Together</h2>
           <p className="text-xl mb-8 opacity-90">Ready to transform your business with our services?</p>
           <div className="flex gap-4 justify-center">
-            <Button size="lg" className="bg-white text-primary hover:bg-gray-100">
+            <Button onClick={() => navigate('/contact-us')} size="lg" className="bg-secondary text-white cursor-pointer hover:bg-secondary-light">
               Get Started
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+            <Button onClick={() => navigate('/contact-us')} size="lg" variant="outline" className="cursor-pointer border-white text-primary hover:bg-white hover:text-primary">
               Learn More
             </Button>
           </div>

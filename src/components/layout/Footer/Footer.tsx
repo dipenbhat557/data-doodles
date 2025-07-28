@@ -36,8 +36,8 @@ const Footer: React.FC = () => {
             <ul className='space-y-2 text-gray-300'>
               <li>Baluwatar-03, Kathmandu</li>
               <li>Bagmati, Nepal</li>
-              <li>Phone: +9779818346503</li>
-              <li>Email: info@datadoodlestech.com</li>
+              <li>Phone: +977-9818346503</li>
+              <li>Email: datadoodless@gmail.com</li>
             </ul>
           </div>
         </div>

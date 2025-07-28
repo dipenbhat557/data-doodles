@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button"
+import { useNavigate } from "react-router-dom";
 
 function Products() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
@@ -53,7 +55,7 @@ function Products() {
                       </li>
                     ))}
                   </ul>
-                  <Button className="w-full bg-primary hover:bg-primary-dark text-white">
+                  <Button className="cursor-pointer w-full bg-primary hover:bg-primary-dark text-primary" onClick={() => navigate(`/products/${product.name.toLowerCase().replace(/\s+/g, '-')}`)}>
                     Learn More
                   </Button>
                 </div>

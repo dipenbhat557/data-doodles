@@ -23,9 +23,6 @@ function AboutUs() {
               <p className="text-lg text-gray-600 mb-6">
                 At Data Doodles, our mission is to empower businesses through innovative technology solutions. We believe in creating software that not only solves problems but also drives growth and success.
               </p>
-              <Button className="bg-primary hover:bg-primary-dark text-white">
-                Learn More
-              </Button>
             </div>
             <div className="bg-gray-50 rounded-xl p-8 shadow-lg">
               <h3 className="text-2xl font-semibold mb-6">Our Values</h3>

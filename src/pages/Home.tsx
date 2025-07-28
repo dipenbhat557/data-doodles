@@ -1,7 +1,9 @@
 import Hero from "@/components/sections/Hero/Hero"
 import { Button } from "@/components/ui/button"
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen">
       <Hero />
@@ -94,7 +96,8 @@ function Home() {
           <div className="mt-16 text-center">
             <Button 
               size="lg"
-              className="bg-primary hover:bg-primary-dark text-white"
+              className="bg-primary  hover:bg-primary-dark text-white cursor-pointer"
+              onClick={() => navigate('/about-us')}
             >
               Learn More About Us
             </Button>
@@ -108,10 +111,10 @@ function Home() {
           <h2 className="text-4xl font-bold mb-6">Ready to Get Started?</h2>
           <p className="text-xl mb-8 opacity-90">Let's transform your ideas into reality</p>
           <div className="flex gap-4 justify-center">
-            <Button size="lg" className="bg-secondary hover:bg-secondary-light">
+            <Button size="lg" className=" bg-secondary hover:bg-secondary-light cursor-pointer" onClick={() => navigate('/contact-us')}>
               Contact Us
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+            <Button onClick={() => navigate('/about-us')} size="lg" variant="outline" className="border-white text-primary cursor-pointer hover:bg-white hover:text-primary">
               Learn More
             </Button>
           </div>

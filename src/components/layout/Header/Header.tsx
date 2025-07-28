@@ -1,57 +1,155 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { logo } from '@/assets'
+import { IoMdMail, IoMdCall, IoMdClose, IoMdMenu } from "react-icons/io";
 
 const Header: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [isScrolled, setIsScrolled] = useState(false)
+    const location = useLocation()
 
-  return (
-    <header className='fixed top-0 left-0 right-0 z-50 bg-primary/20 shadow-sm'>
-      <div className='container mx-auto px-4'>
-        <div className='flex items-center justify-between h-20'>
-          <div className='flex items-center'>
-            <a href='/' className='flex items-center'>
-              <img src={logo} alt='Data Doodles' className='h-10 w-auto' />
-            </a>
-          </div>
+    // Handle scroll effect
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 20)
+        }
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
 
-          <nav className='hidden md:flex items-center space-x-8'>
-            <a href='/' className='text-white hover:text-slate-300'>Home</a>
-            <a href='/products' className='text-white hover:text-slate-300'>Products</a>
-            <a href='/services' className='text-white hover:text-slate-300'>Services</a>
-            <a href='/contact-us' className='text-white hover:text-slate-300'>Contact Us</a>
-            <a href='/about-us' className='text-white hover:text-slate-300'>About Us</a>
-          </nav>
+    // Close mobile menu on route change
+    useEffect(() => {
+        setIsMenuOpen(false)
+        window.scrollTo(0, 0)
+    }, [location.pathname])
 
-          <div className='hidden md:flex items-center space-x-4'>
-            <a href='tel:+9779818346503' className='text-white hover:text-slate-300 font-semibold'>+9779818346503</a>
-          </div>
+    const navItems = [
+        { to: '/', label: 'Home' },
+        { to: '/products', label: 'Products' },
+        { to: '/services', label: 'Services' },
+        { to: '/contact-us', label: 'Contact Us' },
+        { to: '/about-us', label: 'About Us' }
+    ]
 
-          <button 
-            className='md:hidden'
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-          </button>
-        </div>
+    return (
+        <header
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+                isScrolled
+                    ? 'bg-primary/80 backdrop-blur-lg shadow-lg'
+                    : 'bg-primary'
+            }`}
+        >
+            <div className='container mx-auto px-4'>
+                <div className='flex items-center justify-between h-20'>
+                    {/* Logo */}
+                    <div className='flex items-center'>
+                        <Link to='/' className='flex items-center'>
+                            <img src={logo} alt='Data Doodles' className='h-16 w-auto' />
+                        </Link>
+                    </div>
 
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className='md:hidden py-4'>
-            <nav className='flex flex-col space-y-4'>
-              <a href='/' className='text-primary hover:text-primary/80'>Home</a>
-              <a href='/products' className='text-gray-600 hover:text-primary'>Products</a>
-              <a href='/services' className='text-gray-600 hover:text-primary'>Services</a>
-              <a href='/contact-us' className='text-gray-600 hover:text-primary'>Contact Us</a>
-              <a href='/about-us' className='text-gray-600 hover:text-primary'>About Us</a>
-              <a href='tel:+9779818346503' className='text-primary font-semibold'>+9779818346503</a>
-            </nav>
-          </div>
-        )}
-      </div>
-    </header>
-  )
+                    {/* Desktop Navigation */}
+                    <nav className='hidden md:flex items-center space-x-8'>
+                        {navItems.map((item) => (
+                            <Link
+                                key={item.to}
+                                to={item.to}
+                                className={`font-medium transition-colors duration-200 ${
+                                    location.pathname === item.to ? 'text-secondary' : 
+                                    isScrolled
+                                        ? 'text-gray-400 hover:text-slate-400'
+                                        : 'text-white hover:text-white/80'
+                                }`}
+                            >
+                                {item.label}
+                            </Link>
+                        ))}
+                    </nav>
+
+                    {/* Contact Number and Email */}
+                    <div className='hidden md:flex items-center space-x-4'>
+                        <div className='flex items-center gap-4'>
+                            <a
+                                href='tel:+9779818346503'
+                                className={`flex items-center gap-2 font-semibold transition-colors duration-200 group ${
+                                    isScrolled
+                                        ? 'text-gray-400 hover:text-slate-400'
+                                        : 'text-white hover:text-white/80'
+                                }`}
+                                title='Call us'
+                            >
+                                <IoMdCall className='w-5 h-5 group-hover:scale-110 transition-transform' />
+                                <span className='hidden lg:block'>+977 981834650</span>
+                            </a>
+                            <a 
+                                href='mailto:datadoodless@gmail.com'
+                                className={`flex items-center gap-2 font-semibold transition-colors duration-200 group ${
+                                    isScrolled
+                                        ? 'text-gray-400 hover:text-slate-400'
+                                        : 'text-white hover:text-white/80'
+                                }`}
+                                title='Email us'
+                            >
+                                <IoMdMail className='w-5 h-5 group-hover:scale-110 transition-transform' />
+                                <span className='hidden lg:block'>datadoodless@gmail.com</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    {/* Mobile Menu Button */}
+                    <button
+                        className={`md:hidden p-2 rounded-lg transition-colors ${
+                            isScrolled
+                                ? 'text-gray-400 hover:text-slate-400'
+                                : 'text-white hover:bg-white/10'
+                        }`}
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    >
+                        {isMenuOpen ? (
+                            <IoMdClose className='w-5 h-5' />
+                        ) : (
+                            <IoMdMenu className='w-5 h-5' />
+                        )}
+                    </button>
+                </div>
+
+                {/* Mobile Menu */}
+                {isMenuOpen && (
+                    <div className='md:hidden py-4 px-2 bg-white rounded-lg shadow-lg mb-4'>
+                        <nav className='flex flex-col space-y-4'>
+                            {navItems.map((item) => (
+                                <Link
+                                    key={item.to}
+                                    to={item.to}
+                                    className={`text-gray-700 hover:text-primary font-medium px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors ${
+                                        location.pathname === item.to ? 'bg-gray-50 text-primary' : ''
+                                    }`}
+                                >
+                                    {item.label}
+                                </Link>
+                            ))}
+                            <div className='flex flex-col space-y-2 px-4 py-2'>
+                                <a
+                                    href='tel:+9779818346503'
+                                    className='flex items-center gap-2 text-primary font-semibold rounded-lg hover:bg-gray-50 transition-colors'
+                                >
+                                    <IoMdCall className='w-5 h-5' />
+                                    <span>+977 981834650</span>
+                                </a>
+                                <a
+                                    href='mailto:datadoodless@gmail.com'
+                                    className='flex items-center gap-2 text-primary font-semibold rounded-lg hover:bg-gray-50 transition-colors'
+                                >
+                                    <IoMdMail className='w-5 h-5' />
+                                    <span>datadoodless@gmail.com</span>
+                                </a>
+                            </div>
+                        </nav>
+                    </div>
+                )}
+            </div>
+        </header>
+    )
 }
 
 export default Header 

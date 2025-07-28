@@ -1,6 +1,55 @@
 import { Button } from "@/components/ui/button"
+import { useState, FormEvent } from "react"
+import { toast } from "sonner"
 
 function ContactUs() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+
+    // Simulate API call
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+      // Show success toast
+      toast.success('Message sent successfully!', {
+        description: 'We will get back to you soon.',
+        duration: 5000,
+      })
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      })
+    } catch (error) {
+      // Show error toast
+      toast.error('Failed to send message', {
+        description: 'Please try again later.',
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
@@ -54,40 +103,60 @@ function ContactUs() {
             {/* Contact Form */}
             <div className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold mb-8">Send us a Message</h2>
-              <form className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label className="block text-sm font-medium mb-2">Name</label>
                   <input
                     type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
                     className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:outline-none"
                     placeholder="Your name"
+                    required
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-2">Email</label>
                   <input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:outline-none"
                     placeholder="your@email.com"
+                    required
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-2">Subject</label>
                   <input
                     type="text"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
                     className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:outline-none"
                     placeholder="How can we help?"
+                    required
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-2">Message</label>
                   <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:outline-none h-32"
                     placeholder="Your message..."
+                    required
                   ></textarea>
                 </div>
-                <Button className="w-full bg-primary hover:bg-primary-dark text-white">
-                  Send Message
+                <Button 
+                  type="submit"
+                  className="w-full bg-primary hover:bg-primary-dark text-white transition-all duration-300"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </Button>
               </form>
             </div>
@@ -96,14 +165,10 @@ function ContactUs() {
       </section>
 
       {/* Map Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Our Location</h2>
-          <div className="h-96 bg-gray-200 rounded-xl">
-            {/* Add your map component here */}
-            <div className="w-full h-full flex items-center justify-center text-gray-500">
-              Baluwatar-03, Kathmandu
-            </div>
+      <section className="py-20 px-10 rounded-lg bg-gray-50">
+        <div className="embed-map-fixed rounded-lg">
+          <div className="embed-map-container rounded-lg">
+            <iframe className="embed-map-frame" frameBorder="0" scrolling="no" height="400" width="100%" src="https://maps.google.com/maps?width=600&height=400&hl=en&q=baluwatar-03%20kathmandu&t=&z=14&ie=UTF8&iwloc=B&output=embed"></iframe>
           </div>
         </div>
       </section>
