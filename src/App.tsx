@@ -6,6 +6,8 @@ import Products from './pages/Products'
 import Services from './pages/Services'
 import ContactUs from './pages/ContactUs'
 import AboutUs from './pages/AboutUs'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import TermsAndConditions from './pages/TermsAndConditions'
 import { useEffect } from 'react'
 import { Toaster } from 'sonner'
 
@@ -37,6 +39,8 @@ function App() {
             <Route path='/services' element={<Services />} />
             <Route path='/contact-us' element={<ContactUs />} />
             <Route path='/about-us' element={<AboutUs />} />
+            <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+            <Route path='/terms-and-conditions' element={<TermsAndConditions />} />
           </Routes>
         </main>
         <Footer />
