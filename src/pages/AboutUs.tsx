@@ -76,7 +76,7 @@ function AboutUs() {
                 Leading Data Doodles with a vision to transform ideas into reality through innovative technology solutions. With extensive experience in the tech industry, Mr. Sharma guides our team towards excellence and innovation.
               </p>
               <div className="mt-6 flex justify-center gap-4">
-                <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">
+                <Button variant="outline" onClick={() => window.open('https://www.linkedin.com/in/prabeshsharma/', '_blank')} className="cursor-pointer border-primary text-primary hover:bg-primary hover:text-white">
                   Connect on LinkedIn
                 </Button>
               </div>
